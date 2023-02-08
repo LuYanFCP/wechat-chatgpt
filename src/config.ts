@@ -8,17 +8,15 @@ let configFile: any = {};
 if (fs.existsSync("./config.yaml")) {
   const file = fs.readFileSync("./config.yaml", "utf8");
   configFile = parse(file);
-} else {
+ } else {
   configFile = {
     chatGPTAccountPool: [
       {
-        email: process.env.CHAT_GPT_EMAIL,
-        password: process.env.CHAT_GPT_PASSWORD,
+        apiToken: process.env.API_TOKEN
       },
     ],
     chatGptRetryTimes: Number(process.env.CHAT_GPT_RETRY_TIMES),
     chatPrivateTiggerKeyword: process.env.CHAT_PRIVATE_TRIGGER_KEYWORD,
-    openAIProxy: process.env.OPENAI_PROXY,
     clearanceToken: process.env.CF_CLEARANCE,
     userAgent: process.env.USER_AGENT,
   };
@@ -42,3 +40,4 @@ export const config: IConfig = {
   clearanceToken: configFile.clearanceToken,
   userAgent: configFile.userAgent,
 };
+console.log(`chatGPTAccountPool: ${JSON.stringify(config)}`)
